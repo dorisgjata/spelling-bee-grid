@@ -24,14 +24,18 @@ export default function TwoLetterWords() {
 function FindWords(twoLetters: string) {
     const [words, setWords] = useState<string[]>([]);
     const [word, setWord] = useState<string>('');
+    const [match, setMatch] = useState<boolean>(true);
     const [first, ...rest] = data.letters;
     const regexp = new RegExp(`((?=[${rest.join('')}])(?=.${first}.)){4,}`, 'gi');
-    const handleChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, setState: Dispatch<SetStateAction<string>>) => setState(event.target.value);
+    const handleChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setMatch(regexp.test(event.target.value));
+        setWord(event.target.value);
+    };
     const handleDelete = (deleteWord: string) => () => {
         setWords(words => words.filter(word => word !== deleteWord));
     }
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        console.log(regexp, regexp.test(word))
+        console.log(regexp.test(word));
         event.preventDefault();
         if (word.startsWith(twoLetters.toLowerCase()) && !words.find(w => w === word) && regexp.test(word)) {
             setWord('');
@@ -42,10 +46,13 @@ function FindWords(twoLetters: string) {
         <Box component="form" autoComplete="off" onSubmit={handleSubmit}>
             <TextField
                 value={word}
-                onChange={(e) => handleChange(e, setWord)}
+                onChange={(e) => handleChange(e)}
+                error={!match && word.length > 0}
             />
             <Box sx={{ display: 'flex', flexFlow: 'row' }}>
-                {words.map((word, index) => <Box sx={{ p: 1 }} key={`${word}_${index}`}> <Chip color='primary' label={word} onDelete={handleDelete(word)} /> </Box>)}
+                {words.map((word, index) => <Box sx={{ p: 1 }} key={`${word}_${index}`}>
+                    <Chip color='primary' label={word} onDelete={handleDelete(word)} />
+                </Box>)}
             </Box>
         </Box>
     )
