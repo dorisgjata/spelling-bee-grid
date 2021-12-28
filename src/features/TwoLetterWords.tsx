@@ -24,13 +24,16 @@ export default function TwoLetterWords() {
 function FindWords(twoLetters: string) {
     const [words, setWords] = useState<string[]>([]);
     const [word, setWord] = useState<string>('');
+    const [first, ...rest] = data.letters;
+    const regexp = new RegExp(`((?=[${rest.join('')}])(?=.${first}.)){4,}`, 'gi');
     const handleChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, setState: Dispatch<SetStateAction<string>>) => setState(event.target.value);
     const handleDelete = (deleteWord: string) => () => {
         setWords(words => words.filter(word => word !== deleteWord));
     }
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        console.log(regexp, regexp.test(word))
         event.preventDefault();
-        if (word.startsWith(twoLetters.toLowerCase()) && !words.find(w => w === word) && word.length >= 4) {
+        if (word.startsWith(twoLetters.toLowerCase()) && !words.find(w => w === word) && regexp.test(word)) {
             setWord('');
             setWords([...words, word]);
         }
