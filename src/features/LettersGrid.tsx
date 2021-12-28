@@ -6,8 +6,9 @@ export default function LettersGrid() {
     const { rows, letters, rowHeader } = data;
     return (
         <TableContainer component={Box} sx={{ borderRadius: 1, border: 1, borderColor: 'lightgrey', minWidth: 400, maxWidth: 800 }}>
+            <Typography component='h1' variant='h1' align='center' sx={{ fontSize: 32, mt: 2 }}>Spelling Bee Grid</Typography>
             <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                {letters.map(letter => (<Typography key={letter} sx={{ m: 2, '&:first-child': { fontWeight: 600 } }}>{letter}</Typography>))}
+                {letters.map(letter => (<Typography key={letter} sx={{ m: 2 }}>{letter}</Typography>))}
             </Box>
             <Table>
                 <TableHead>
