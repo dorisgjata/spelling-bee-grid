@@ -3,6 +3,9 @@ import LettersGrid from './features/LettersGrid';
 import TwoLetterWords from './features/TwoLetterWords';
 import { createTheme } from '@mui/material/styles';
 import data from './data/12-27-2021.json';
+import { useReducer } from 'react';
+import { reducer } from './features/state/State';
+
 
 const theme = createTheme({
   palette: {
@@ -16,6 +19,8 @@ const theme = createTheme({
   }
 })
 function App() {
+  const initialState = { words: [], repeats: data.rows };
+  // const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <ThemeProvider theme={theme}>
       <Grid container spacing={2} maxWidth={1600}>
