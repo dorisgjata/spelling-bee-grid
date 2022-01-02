@@ -2,27 +2,27 @@
   "letters": ["M", "A", "G", "L", "O", "R", "U"],
   "rowHeader": ["4", "5", "6", "7", "8", "9", "Σ"],
   "rows": [ 
-    { "letter": "A", "repeat": [3, 4, 2, 1, 0, 0, 10] },
-    { "letter": "G", "repeat": [4, 3, 2, 2, 0, 0, 11] },
-    { "letter": "L", "repeat": [3, 1, 0, 0, 1, 0, 5] },
-    { "letter": "M", "repeat": [7, 8, 3, 0, 0, 1, 19] },
-    { "letter": "R", "repeat": [2, 1, 0, 0, 0, 0, 3] },
-    { "letter": "Σ", "repeat": [19, 17, 7, 3, 1, 1, 48] }
+    { "letter": "A", "repeats": [3, 4, 2, 1, 0, 0, 10] },
+    { "letter": "G", "repeats": [4, 3, 2, 2, 0, 0, 11] },
+    { "letter": "L", "repeats": [3, 1, 0, 0, 1, 0, 5] },
+    { "letter": "M", "repeats": [7, 8, 3, 0, 0, 1, 19] },
+    { "letter": "R", "repeats": [2, 1, 0, 0, 0, 0, 3] },
+    { "letter": "Σ", "repeats": [19, 17, 7, 3, 1, 1, 48] }
   ],
   "twoLetterWords": [
-    { "letters": "AL", "repeat": 3 },
-    { "letters": "AM", "repeat": 4 },
-    { "letters": "AR", "repeat": 3 },
-    { "letters": "GA", "repeat": 1 },
-    { "letters": "GL", "repeat": 6 },
-    { "letters": "GR", "repeat": 4 },
-    { "letters": "LA", "repeat": 1 },
-    { "letters": "LL", "repeat": 1 },
-    { "letters": "LO", "repeat": 3 },
-    { "letters": "MA", "repeat": 8 },
-    { "letters": "MO", "repeat": 7 },
-    { "letters": "MU", "repeat": 4 },
-    { "letters": "RO", "repeat": 2 },
-    { "letters": "RU", "repeat": 1 }
+    { "letter": "AL", "repeat": 3 },
+    { "letter": "AM", "repeat": 4 },
+    { "letter": "AR", "repeat": 3 },
+    { "letter": "GA", "repeat": 1 },
+    { "letter": "GL", "repeat": 6 },
+    { "letter": "GR", "repeat": 4 },
+    { "letter": "LA", "repeat": 1 },
+    { "letter": "LL", "repeat": 1 },
+    { "letter": "LO", "repeat": 3 },
+    { "letter": "MA", "repeat": 8 },
+    { "letter": "MO", "repeat": 7 },
+    { "letter": "MU", "repeat": 4 },
+    { "letter": "RO", "repeat": 2 },
+    { "letter": "RU", "repeat": 1 }
   ]
 }
