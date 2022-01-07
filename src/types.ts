@@ -1,7 +1,7 @@
 export interface GridType {
     letters: Letter[],
     rowHeader: Letter[],
-    rows: Rows[]
+    rows?: Rows[]
     twoLetterWords?: TwoLetterWords[]
 }
 export interface Rows {
