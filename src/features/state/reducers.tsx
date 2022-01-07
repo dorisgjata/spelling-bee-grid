@@ -37,14 +37,6 @@ export type WordsPayload = {
     }
 }
 
-// export type RowsPayload = {
-//     [Types.Increment]: {
-//         word: string,
-//     },
-//     [Types.Decrement]: {
-//         word: string,
-//     }
-// }
 export type WordsAction = ActionMap<WordsPayload>[keyof ActionMap<WordsPayload>];
 
 export function wordsReducer(state: AppState, action: WordsAction) {
@@ -58,18 +50,6 @@ export function wordsReducer(state: AppState, action: WordsAction) {
             return state;
     }
 }
-// export type RowsAction = ActionMap<RowsPayload>[keyof ActionMap<RowsPayload>];
-
-// export function rowsReducer(state: RowsType, action: WordsAction | RowsAction) {
-//     switch (action.type) {
-//         case Types.Decrement:
-//             return handleRows(state, action);
-//         case Types.Increment:
-//             return handleRows(state, action);
-//         default:
-//             return state;
-//     }
-// }
 
 function handleRows(state: RowsType, action: WordsAction) {
     const letter = action.payload.word.charAt(0).toUpperCase();
@@ -98,9 +78,3 @@ function handleRows(state: RowsType, action: WordsAction) {
         return row;
     });
 }
-
-
-// export const mainReducer = (state: AppState, action: WordsAction | RowsAction) => ({
-//     words: wordsReducer(state.words, action),
-//     rows: rowsReducer(state.rows, action),
-// });
