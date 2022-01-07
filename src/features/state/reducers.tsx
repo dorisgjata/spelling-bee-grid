@@ -1,21 +1,4 @@
-import { Letter, Rows } from "../../types";
-
-export type AppState = {
-    words: WordsType,
-    rows: RowsType
-};
-export type WordsType = string[];
-export type RowsType = {
-    letter: Letter,
-    repeats: number[]
-}[];
-
-export enum Types {
-    Add = 'add',
-    Delete = 'delete',
-    // Decrement = 'decrement',
-    // Increment = 'increment',
-};
+import { AppState, Letter, RowsType, Types } from "../../types";
 
 type ActionMap<M extends { [index: string]: any }> = {
     [Key in keyof M]: M[Key] extends undefined

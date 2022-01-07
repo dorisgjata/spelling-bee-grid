@@ -15,3 +15,18 @@ export interface TwoLetterWords {
 }
 export type Letter = string;
 export type Repeat = number;
+
+export type AppState = {
+    words: WordsType,
+    rows: RowsType
+};
+export type WordsType = string[];
+export type RowsType = {
+    letter: Letter,
+    repeats: number[]
+}[];
+
+export enum Types {
+    Add = 'add',
+    Delete = 'delete',
+};

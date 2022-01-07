@@ -3,8 +3,7 @@ import { Box, Chip, TextField, Typography } from '@mui/material';
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { Letter, TwoLetterWords as TwoLetterWordsType } from '../types';
 import { AppContext } from './state/context';
-import { Types } from './state/reducers';
-
+import { Types } from '../types';
 
 export default function TwoLetterWords(props: { twoLetterWords: TwoLetterWordsType[], letters: Letter[], }) {
     const { twoLetterWords, letters } = props;

@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
-import { AppState, wordsReducer, WordsAction } from "./reducers";
+import { wordsReducer, WordsAction } from "./reducers";
 import data from '../../data/12-27-2021.json';
+import { AppState } from "../../types";
 
 const initialState: AppState = {
     words: [],
