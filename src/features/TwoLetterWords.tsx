@@ -1,7 +1,9 @@
 
 import { Box, Chip, TextField, Typography } from '@mui/material';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { Letter, TwoLetterWords as TwoLetterWordsType } from '../types';
+import { AppContext } from './state/context';
+import { Types } from './state/reducers';
 
 
 export default function TwoLetterWords(props: { twoLetterWords: TwoLetterWordsType[], letters: Letter[], }) {
@@ -24,7 +26,7 @@ export default function TwoLetterWords(props: { twoLetterWords: TwoLetterWordsTy
 
 function FindWords(twoLetters: string, letters: string[]) {
     const [words, setWords] = useState<string[]>([]);
-    //use reducer
+    const { dispatch } = useContext(AppContext);
     const [word, setWord] = useState<string>('');
     const [match, setMatch] = useState<boolean>(true);
     const [first, ...rest] = letters;
@@ -35,6 +37,7 @@ function FindWords(twoLetters: string, letters: string[]) {
     };
     const handleDelete = (deleteWord: string) => () => {
         setWords(words => words.filter(word => word !== deleteWord));
+        dispatch({ type: Types.Delete, payload: { word: deleteWord } });
     }
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         console.log(regexp.test(word));
@@ -42,6 +45,7 @@ function FindWords(twoLetters: string, letters: string[]) {
         if (word.startsWith(twoLetters.toLowerCase()) && !words.find(w => w === word) && regexp.test(word)) {
             setWord('');
             setWords([...words, word]);
+            dispatch({ type: Types.Add, payload: { word } });
         }
     }
     return (

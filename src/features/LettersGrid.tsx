@@ -1,9 +1,12 @@
 
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { useContext } from 'react';
 import { GridType } from '../types';
+import { AppContext } from './state/context';
 
 export default function LettersGrid(props: GridType) {
-    const { rows, letters, rowHeader } = props;
+    const { letters, rowHeader } = props;
+    const { state } = useContext(AppContext);
     return (
         <TableContainer component={Box} sx={{ borderRadius: 1, border: 1, borderColor: 'lightgrey', minWidth: 400, maxWidth: 800 }}>
             <Typography component='h1' variant='h1' align='center' sx={{ fontSize: 32, mt: 2 }}>Spelling Bee Grid</Typography>
@@ -18,7 +21,7 @@ export default function LettersGrid(props: GridType) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map(row => (
+                    {state.rows.map(row => (
                         <TableRow key={row.letter}
                             sx={{
                                 '&:last-child td, &:last-child th': { border: 0, fontWeight: 600 },
