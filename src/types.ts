@@ -1,32 +1,22 @@
-export interface GridType {
-    letters: Letter[],
-    rowHeader: Letter[],
-    rows?: Rows[]
-    twoLetterWords?: TwoLetterWords[]
+export interface AppState {
+  letters: string[];
+  rowHeader: string[];
+  rows: Rows[];
+  twoLetterWords: TwoLetterWordsType[];
+  words: string[];
 }
 export interface Rows {
-    letter: Letter,
-    repeats: Repeat[],
+  letter: string;
+  repeats: number[];
 }
-
-export interface TwoLetterWords {
-    letter: Letter,
-    repeat: Repeat,
+export interface TwoLetterWordsType {
+  letter: string;
+  repeats: number;
 }
-export type Letter = string;
-export type Repeat = number;
-
-export type AppState = {
-    words: WordsType,
-    rows: RowsType
-};
-export type WordsType = string[];
-export type RowsType = {
-    letter: Letter,
-    repeats: number[]
-}[];
-
 export enum Types {
-    Add = 'add',
-    Delete = 'delete',
-};
+  Add = "ADD",
+  Delete = "DELETE",
+  SetLetters = "SET_LETTERS",
+  SetTwoLetters = "SET_TWO_LETTERS",
+  SetGrid = "SET_GRID",
+}
