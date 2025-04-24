@@ -23,14 +23,14 @@ export function stateReducer(state: AppState, action: WordsAction): AppState {
       return {
         ...state,
         words: [...state.words, action.payload.word],
-        rows: handleRows(state.rows, action),
+        rows: handleRows(state, action),
       };
 
     case Types.Delete:
       return {
         ...state,
         words: state.words.filter((w) => w !== action.payload.word),
-        rows: handleRows(state.rows, action),
+        rows: handleRows(state, action),
       };
     case Types.SetLetters:
       return {
@@ -47,27 +47,42 @@ export function stateReducer(state: AppState, action: WordsAction): AppState {
         ...state,
         rowHeader: parseRowHeader(action.payload.input),
         rows: parseGridInput(action.payload.input),
+        letters: parseGridInput(action.payload.input)
+          .slice(0, -1) //remove the "Σ" character
+          .map((it) => it.letter),
       };
     default:
       return state;
   }
 }
 
-function handleRows(state: Rows[], action: WordsAction): Rows[] {
+function handleRows(state: AppState, action: WordsAction): Rows[] {
   if (action.type === Types.Add || action.type === Types.Delete) {
     const letter = action.payload.word.charAt(0).toUpperCase();
-    const frequency = action.payload.word.length;
-    console.log(letter, frequency);
-    return state.map((row) => {
-      if (row.letter === letter) {
+    const letterLength = action.payload.word.length;
+    const findFreq = state.rowHeader.findIndex(
+      (freq) => freq === `${letterLength}`
+    );
+    const lastIndex = state.rows.length - 1;
+    //todo; add bounds so user doesn't go below 0
+    return state.rows.map((row, rowIndex) => {
+      if (row.letter.toLocaleUpperCase() === letter || rowIndex === lastIndex) {
         return {
           ...row,
-          repeats: row.repeats.map((freq) => {
-            if (freq === frequency && action.type === Types.Add) {
-              return freq - 1;
-            }
-            if (freq === frequency && action.type === Types.Delete) {
-              return freq + 1;
+          repeats: row.repeats.map((freq, index) => {
+            if (freq >= 0) {
+              if (
+                action.type === Types.Add &&
+                (index === findFreq || index === lastIndex)
+              ) {
+                return freq - 1;
+              }
+              if (
+                action.type === Types.Delete &&
+                (index === findFreq || index === lastIndex)
+              ) {
+                return freq + 1;
+              }
             }
             return freq;
           }),
@@ -76,8 +91,7 @@ function handleRows(state: Rows[], action: WordsAction): Rows[] {
       return row;
     });
   }
-
-  return state;
+  return state.rows;
 }
 
 export function createRows(letters: string[]): Rows[] {

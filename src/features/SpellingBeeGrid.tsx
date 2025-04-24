@@ -1,5 +1,6 @@
 import {
   Box,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -8,51 +9,95 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Types } from "../types";
 import { useAppContext } from "./state/context";
-import TodaysLetters from "./TodaysLetters";
+import TextComponent from "./TextComponent";
 
-export default function LettersGrid() {
+export default function SpellingBeeGrid() {
   const { state, dispatch } = useAppContext();
   const [todaysLetters, setTodaysLetters] = useState("");
+  const [gridInput, setGridInput] = useState<string>("");
 
-  useEffect(() => {
-    if (todaysLetters.length === 7) {
+  const handleLetters = (input: string) => {
+    const trimmed = input.trim();
+    setTodaysLetters(trimmed);
+  };
+
+  const handleLettersSubmit = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && todaysLetters.length === 7) {
+      event.preventDefault();
       dispatch({
         type: Types.SetLetters,
         payload: { letters: todaysLetters.split("") },
       });
     }
-  }, [todaysLetters]);
+  };
+
+  const handleGridInput = (input: string) => {
+    dispatch({
+      type: Types.SetGrid,
+      payload: { input: input },
+    });
+    setGridInput("");
+  };
+
+  const handleGridSubmit = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleGridInput(gridInput);
+    }
+  };
+
   return (
     <TableContainer
       component={Box}
       sx={{
-        borderRadius: 1,
+        borderRadius: 2,
         border: 1,
         borderColor: "lightgrey",
-        minWidth: 400,
-        maxWidth: 800,
+        minWidth: 800,
+        maxWidth: 1200,
+        width: 1,
+        maxHeight: 1000,
+        minHeight: 650,
+        height: 1,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
+        background: "white",
       }}
     >
       <Typography
-        component="h1"
-        variant="h1"
+        component="h2"
+        variant="h2"
         align="center"
-        sx={{ fontSize: 32, mt: 2 }}
+        sx={{ fontSize: 32, mt: 2, fontWeight: 500 }}
       >
         Spelling Bee Grid
       </Typography>
-      <TodaysLetters
-        letters={todaysLetters}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setTodaysLetters(e.target.value)
-        }
-      />
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        sx={{ justifyContent: "center" }}
+      >
+        <TextComponent
+          title="Letters"
+          subtitle="Input center letter first."
+          input={todaysLetters}
+          onChange={(event) => setTodaysLetters(event.target.value)}
+          onBlur={() => handleLetters}
+          onKeyDown={handleLettersSubmit}
+          // inputProps={{ maxLength: 7 }}
+        />
+        <TextComponent
+          title="Grid"
+          subtitle="Grid will be auto-filled once input is processed."
+          input={gridInput}
+          onChange={(event) => setGridInput(event.target.value)}
+          onKeyDown={handleGridSubmit}
+          onBlur={() => handleGridInput}
+        />
+      </Stack>
 
       <Box
         sx={{
@@ -60,11 +105,8 @@ export default function LettersGrid() {
           justifyContent: "center",
         }}
       >
-        {todaysLetters.split("").map((letter: string, index: number) => (
-          <Typography
-            key={letter}
-            sx={{ m: 2, fontWeight: index === 0 ? 600 : 400 }}
-          >
+        {state.letters.map((letter: string, index: number) => (
+          <Typography key={letter} sx={{ m: 2 }}>
             {letter}
           </Typography>
         ))}
