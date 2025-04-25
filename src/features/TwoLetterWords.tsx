@@ -26,11 +26,8 @@ export default function TwoLetterWords() {
         borderRadius: 2,
         border: 1,
         borderColor: "lightgrey",
-        minWidth: 800,
-        maxWidth: 1200,
-        width: 1,
-        height: 1,
-        maxHeight: 1000,
+        width: "50%",
+        height: "100%",
         minHeight: 650,
         background: "white",
       }}
@@ -47,6 +44,7 @@ export default function TwoLetterWords() {
         sx={{
           display: "flex",
           flexDirection: "column",
+          px: 2,
         }}
       >
         <Typography
@@ -60,7 +58,7 @@ export default function TwoLetterWords() {
 
         <TextField
           label="Two letter list"
-          sx={{ width: 600, alignSelf: "center", mt: 2 }}
+          sx={{ alignSelf: "center", mt: 2 }}
           value={input}
           onChange={(event) => setInput(event.target.value)}
           onKeyDown={handleSubmit}

@@ -35,7 +35,7 @@ export function stateReducer(state: AppState, action: WordsAction): AppState {
     case Types.SetLetters:
       return {
         ...state,
-        letters: action.payload.letters.sort(),
+        letters: action.payload.letters,
       };
     case Types.SetTwoLetters:
       return {
@@ -47,9 +47,9 @@ export function stateReducer(state: AppState, action: WordsAction): AppState {
         ...state,
         rowHeader: parseRowHeader(action.payload.input),
         rows: parseGridInput(action.payload.input),
-        letters: parseGridInput(action.payload.input)
-          .slice(0, -1) //remove the "Σ" character
-          .map((it) => it.letter),
+        // letters: parseGridInput(action.payload.input)
+        //   .slice(0, -1) //remove the "Σ" character
+        //   .map((it) => it.letter),
       };
     default:
       return state;

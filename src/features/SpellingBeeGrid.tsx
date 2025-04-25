@@ -20,7 +20,7 @@ export default function SpellingBeeGrid() {
   const [gridInput, setGridInput] = useState<string>("");
 
   const handleLetters = (input: string) => {
-    const trimmed = input.trim();
+    const trimmed = input.replace(/\s+/g, "");
     setTodaysLetters(trimmed);
   };
 
@@ -32,6 +32,7 @@ export default function SpellingBeeGrid() {
         payload: { letters: todaysLetters.split("") },
       });
     }
+    setTodaysLetters("");
   };
 
   const handleGridInput = (input: string) => {
@@ -48,6 +49,7 @@ export default function SpellingBeeGrid() {
       handleGridInput(gridInput);
     }
   };
+  console.log(todaysLetters, todaysLetters.length);
 
   return (
     <TableContainer
@@ -56,12 +58,8 @@ export default function SpellingBeeGrid() {
         borderRadius: 2,
         border: 1,
         borderColor: "lightgrey",
-        minWidth: 800,
-        maxWidth: 1200,
-        width: 1,
-        maxHeight: 1000,
-        minHeight: 650,
-        height: 1,
+        width: "50%",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
@@ -84,7 +82,7 @@ export default function SpellingBeeGrid() {
           title="Letters"
           subtitle="Input center letter first."
           input={todaysLetters}
-          onChange={(event) => setTodaysLetters(event.target.value)}
+          onChange={(event) => handleLetters(event.target.value)}
           onBlur={() => handleLetters}
           onKeyDown={handleLettersSubmit}
           // inputProps={{ maxLength: 7 }}
@@ -106,7 +104,10 @@ export default function SpellingBeeGrid() {
         }}
       >
         {state.letters.map((letter: string, index: number) => (
-          <Typography key={letter} sx={{ m: 2 }}>
+          <Typography
+            key={letter}
+            sx={{ m: 2, fontWeight: index === 0 ? 600 : 400 }}
+          >
             {letter}
           </Typography>
         ))}

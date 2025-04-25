@@ -31,8 +31,8 @@ function App() {
           direction="column"
           sx={{
             margin: "0 auto",
-            width: "100vw",
-            height: "100vh",
+            width: "100%",
+            height: "100%",
             display: "flex",
             justifyContent: "flex-start",
             background: "#f2f2f2",
